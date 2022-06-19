@@ -1,39 +1,47 @@
-#include<iostream>
-#include<string>
+//
+// Created by 강주희 on 2022/06/18.
+//
+
+#include <string>
+#include <iostream>
+#include <vector>
+
 using namespace std;
 
-int endFlag = 0;
-int N;
+string A = "123";
 
-bool isValid(string result) {
-	int len = result.size();
-	int end = len - 1;
+int isGoodArr(string arr) {
 
-	for (int i = 1; i <= len / 2; i++) {
-		string a = result.substr(end - i, i);
-		string b = result.substr(end, i);
-		if (!a.compare(b)) return false;
-		--end;
-	}
-	return true;
+    int n = arr.length();
+    for(int i=1; i<int(n/2)+1; i++) { // i : 검사할 부분 수열의 길이
+        for (int j=i; j<n-i+1; j++) { // j : 검사할 부분 수열의 기준, j를 기준으로 양쪽으로 i만큼 검사
+            if (arr.substr(j-i,i) == arr.substr(j,i)) {
+                return 0;
+            }
+        }
+    }
+    return 1;
 }
 
-void dfs(int step, string result) {
-	if (endFlag == 1) return; //처음 만난 이후 flag=1이므로 출력 x
-	if (!isValid(result)) return; //가지치기 조건
-	if (step == N) {
-		cout << result << '\n'; //처음 만나면 출력
-		endFlag = 1;
-		return;
-	}
-	dfs(step + 1, result + '1');
-	dfs(step + 1, result + '2');
-	dfs(step + 1, result + '3');
+void recursive(string arr, int n) {
+    if (arr.length() == n) {
+        cout << arr;
+        exit(0);
+    }
+
+    for (int i=0; i<3; i++) {
+        if (isGoodArr(arr + A[i])) {
+            recursive(arr + A[i], n);
+        }
+    }
+    return;
 }
+
+
 int main() {
+    int n;
+    cin >> n;
 
-	cin >> N;
-	dfs(0, "");
-
-	return 0;
+    recursive("1", n);
+    return 0;
 }
