@@ -22,6 +22,17 @@ int main() {
     // a 전봇대 기준 정렬
     sort(position.begin(), position.end());
 
+    /*
+        1   8
+        2   2
+        3   9
+        4   1
+        6   4
+        7   6
+        9   7
+        10 10
+    */
+
     // b 전봇대에서 LIS 구하기
     vector<int> lis (n, 0);
     for (int i=0; i<n; i++) {
@@ -32,6 +43,8 @@ int main() {
             }
         }
     }
+
+
 
     cout << n - *max_element(lis.begin(), lis.end());
 
