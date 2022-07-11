@@ -1,29 +1,43 @@
-#include <iostream>
 #include <algorithm>
+#include <iostream>
 #include <vector>
+
 using namespace std;
 
-vector<pair<int, int>> lines;
-
-int n, a, b, ans = 0;
-
-bool comp(pair<int, int>& a, pair<int, int>& b) {
-	if (a.first == b.first) return a.second < b.second;
-	else return a.first < b.first;
+bool cmp(pair<int, int>& a, pair<int, int>& b) {
+    if (a.first == b.first)
+        return a.second < b.second;
+    else
+        return a.first < b.first;
 }
 
 int main() {
-	scanf("%d", &n);
-	for (int i = 0; i < n; i++) {
-		scanf("%d %d", &a, &b);
-		lines.push_back({ a, 1 });
-		lines.push_back({ b, -1 });
-	}
-	sort(lines.begin(), lines.end(), comp);
-	int cnt = 0;
-	for (int i = 0; i < lines.size(); i++) {
-		cnt += lines[i].second;
-		ans = max(cnt, ans);
-	}
-	printf("%d", ans);
+
+    ios::sync_with_stdio(false);
+    cout.tie(nullptr);
+    cin.tie(nullptr);
+
+    int n;
+    cin >> n;
+
+    int a, b;
+    vector<pair<int, int>> line;
+    for (int i=0; i<n; i++) {
+        cin >> a >> b;
+        line.emplace_back(a, 1);
+        line.emplace_back(b, -1);
+    }
+
+    sort(line.begin(), line.end(), cmp);
+
+    int answer = 0;
+    int cnt = 0;
+    for (int i=0; i<line.size(); i++) {
+        cnt += line[i].second;
+        answer = max(answer, cnt);
+    }
+    cout << answer;
+
+
+   return 0;
 }
