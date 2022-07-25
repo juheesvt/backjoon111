@@ -15,7 +15,7 @@ int main() {
     cin >> n >> m;
 
     int s;
-    cin >> s;
+    cin >> s ;
 
     vector<vector<pair<int, int>>> graph (n+1);
     for (int i=0; i<m; i++) {
@@ -24,12 +24,11 @@ int main() {
         graph[u].emplace_back(w, v);
     }
 
-    vector<int> distance (n+1, INT_MAX);
     priority_queue<pair<int, int>, vector<pair<int, int>>, greater<>> pq;
+    vector<int> distance (n+1, INT_MAX);
 
-
-    pq.push({0, s});
     distance[s] = 0;
+    pq.push({distance[s], s});
 
     while (!pq.empty()) {
 
@@ -40,15 +39,14 @@ int main() {
         if (weight != distance[node])
             continue;
 
-        for (auto &now : graph[node]) {
-            int nextWeight = now.first;
-            int nextNode = now.second;
+        for (auto &next : graph[node]) {
+            int nextWeight = next.first;
+            int nextNode = next.second;
 
-            if (distance[nextNode] > weight + nextWeight) {
-                distance[nextNode] = weight + nextWeight;
-                pq.push({weight + nextWeight, nextNode});
+            if (distance[nextNode] > distance[node] + nextWeight) {
+                distance[nextNode] = distance[node] + nextWeight;
+                pq.push({distance[nextNode], nextNode});
             }
-            
         }
     }
 
