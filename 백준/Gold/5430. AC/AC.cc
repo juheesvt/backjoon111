@@ -71,21 +71,16 @@ int main(){
         else {
             cout << "[";
 
-            if (flag) {
-                for (int i=numbers.size()-1; i>=0; i--) {
-                    cout << numbers[i];
-                    if (i != 0)
-                        cout << ",";
-                }
-                cout << "]";
-            } else {
-                for (int i = 0; i < numbers.size(); i++) {
-                    cout << numbers[i];
-                    if (i != numbers.size() - 1)
-                        cout << ",";
-                }
-                cout << "]";
+            if (flag)
+                reverse(numbers.begin(), numbers.end());
+
+            for (int i = 0; i < numbers.size(); i++) {
+                cout << numbers[i];
+                if (i != numbers.size() - 1)
+                    cout << ",";
             }
+            cout << "]";
+            
         }
         cout << "\n";
     }
