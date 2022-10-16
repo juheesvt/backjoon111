@@ -2,7 +2,7 @@
 
 int main()
 {
-  int arr[9];
+  int arr[8];
   int a=1;
   for(int i=0;i<9;i++)
     {
